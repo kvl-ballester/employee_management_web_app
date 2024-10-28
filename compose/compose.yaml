@@ -1,0 +1,22 @@
+services:
+  web:
+    image: clinic-frontend
+    ports:
+      - "8080:8080"
+  api:
+    image: clinic-api
+    ports: 
+      - "3000:3000"
+    environment:
+      - MONGO_DB_URI=mongodb://mongo:27017/clinic_db
+      - PORT=3000
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    volumes:
+      - mongoDBClinic:/data/db
+    ports:
+      - "27017:27017"
+volumes:
+  mongoDBClinic:
